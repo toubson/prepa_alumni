@@ -1,0 +1,79 @@
+<html>
+<head>
+        <meta charset="utf-8"/>
+        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+        {% include 'header.html' %}
+        <link href='{{ base_url() }}/css/style.css' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <h1>Liste des contrats</h1>
+     
+        <br> <br>
+        <div class="container">
+        
+<div class="row">
+filtres
+</div>
+
+
+    	<table class="table table-hover" id="example">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Numero de contrat</th>
+                <th>Version du contrat</th>
+                <th>Id Contrat</th>
+                <th>Coclico</th>
+                <th>Raison Sociale</th>
+                <th>Actions</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if contrats %}
+            {% for row in contrats %}
+            <tr>
+                <td>{{row.id}}</td>
+                <td>{{row.numeroContrat}}</td>
+                <td>{{row.versionContrat}}</td>
+                <td>{{row.idContrat}}</td>
+                <td>{{row.coclico }}</td>
+                <td>{{row.RaisonSociale }}</td>
+                <td><a href="{{base_url}}/customers/{{row.id}}" class="btn btn-info">Modifier</a></td>
+                <td>
+                        <form action="{{base_url}}/customers" method="POST">
+                        <input class="btn btn-danger" type = "submit" value ="Supprimer">
+                        <input type="hidden" id="delete" name="delete" value="1">
+                        <input type="hidden" id="customer_id" name="customer_id" value="{{row.id}}">
+                    </form>
+                </td>
+            </tr>
+ 
+            {% endfor %}
+            {% else %}
+            <p>No records found</p>
+            {% endif %}
+        </tbody>
+    </table>
+    
+
+        
+        
+        
+        </div>
+    
+{% include 'footer.html' %}
+    
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "language": {
+                "url": "{{ base_url() }}/js/french.lang"
+            }
+        } );
+    } );
+    </script>
+    
+    </body>
+</html>
+  
